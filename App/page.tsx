@@ -599,13 +599,64 @@ if (typeof window !== "undefined") {
     const form = document.getElementById("contact-form")
     if (!form) return
 
-    // Add CSS for error styling
+    // Add CSS for error styling and rate limiting
     const style = document.createElement("style")
     style.textContent = `
       .field-error { font-size: 0.85rem; line-height: 1.2; margin-top: 0.35rem; display: block; }
       .is-invalid { outline: 2px solid #ef4444; }
+      .rate-limit-message { color: #f59e0b; font-size: 0.9rem; margin-top: 0.5rem; }
     `
     document.head.appendChild(style)
+
+    const RATE_LIMIT_KEY = "contact_form_last_submit"
+    const RATE_LIMIT_DURATION = 5 * 60 * 1000 // 5 minutes in milliseconds
+
+    function checkRateLimit() {
+      const lastSubmit = localStorage.getItem(RATE_LIMIT_KEY)
+      if (!lastSubmit) return { allowed: true, timeLeft: 0 }
+
+      const lastSubmitTime = Number.parseInt(lastSubmit)
+      const now = Date.now()
+      const timeElapsed = now - lastSubmitTime
+
+      if (timeElapsed < RATE_LIMIT_DURATION) {
+        const timeLeft = RATE_LIMIT_DURATION - timeElapsed
+        return { allowed: false, timeLeft }
+      }
+
+      return { allowed: true, timeLeft: 0 }
+    }
+
+    function formatTimeLeft(milliseconds) {
+      const minutes = Math.floor(milliseconds / 60000)
+      const seconds = Math.floor((milliseconds % 60000) / 1000)
+      return `${minutes}:${seconds.toString().padStart(2, "0")}`
+    }
+
+    function updateSubmitButton() {
+      const submitBtn = form.querySelector('button[type="submit"]')
+      const rateLimit = checkRateLimit()
+
+      if (!rateLimit.allowed) {
+        submitBtn.disabled = true
+        submitBtn.innerHTML = `<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>Wait ${formatTimeLeft(rateLimit.timeLeft)}`
+
+        // Update countdown every second
+        const countdown = setInterval(() => {
+          const currentRateLimit = checkRateLimit()
+          if (currentRateLimit.allowed) {
+            clearInterval(countdown)
+            submitBtn.disabled = false
+            submitBtn.innerHTML = `<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>Send Message`
+          } else {
+            submitBtn.innerHTML = `<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>Wait ${formatTimeLeft(currentRateLimit.timeLeft)}`
+          }
+        }, 1000)
+      }
+    }
+
+    // Check rate limit on page load
+    updateSubmitButton()
 
     form.addEventListener("submit", (e) => {
       e.preventDefault()
@@ -619,6 +670,16 @@ if (typeof window !== "undefined") {
       // Clear previous errors
       form.querySelectorAll(".field-error").forEach((error) => (error.textContent = ""))
       form.querySelectorAll(".is-invalid").forEach((field) => field.classList.remove("is-invalid"))
+
+      const rateLimit = checkRateLimit()
+      if (!rateLimit.allowed) {
+        const rateLimitError = document.createElement("div")
+        rateLimitError.className = "rate-limit-message"
+        rateLimitError.textContent = `Please wait ${formatTimeLeft(rateLimit.timeLeft)} before sending another message.`
+        submitBtn.parentNode.insertBefore(rateLimitError, submitBtn)
+        setTimeout(() => rateLimitError.remove(), 3000)
+        return
+      }
 
       let hasErrors = false
       let firstInvalidField = null
@@ -664,6 +725,8 @@ if (typeof window !== "undefined") {
         }
         return
       }
+
+      localStorage.setItem(RATE_LIMIT_KEY, Date.now().toString())
 
       // Disable submit button during submission
       submitBtn.disabled = true
