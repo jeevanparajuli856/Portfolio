@@ -21,6 +21,7 @@ app/                # App router (Next.js 13+)
   ├─ layout.tsx     # Root layout
   ├─ page.tsx       # Home page
   ├─ loading.tsx    # Loading state
+  ├─ globals.css    # Global style
 
 components/         
   ├─ ui/            # Reusable UI components
@@ -31,7 +32,7 @@ components/
 hooks/              # Custom React hooks
 lib/                # Utilities
 public/             # Static assets
-styles/             # Global styles
+styles/             # Styles for page
 ```
 
 ---
@@ -40,7 +41,7 @@ styles/             # Global styles
 
 ### 1. Clone the repo
 ```bash
-git clone https://github.com/your-username/portfolio-website.git
+git clone https://github.com/jeevanparajuli856/Jeevan-Portfolio-Website
 cd portfolio-website
 ```
 
