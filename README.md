@@ -6,7 +6,7 @@ It showcases my projects, skills, and experiences, and serves as a central hub t
 ---
 
 ## ✨ Features
-- ⚡ Built with **Next.js 15** and **React 18**  
+- ⚡ Built with **TypeScript** and **Next.js**  
 - 🎨 Styled with **Tailwind CSS** and custom components  
 - 🌗 Dark / Light theme support  
 - 📱 Fully responsive and mobile-friendly  
@@ -34,39 +34,6 @@ lib/                # Utilities
 public/             # Static assets
 styles/             # Styles for page
 ```
-
----
-
-## 🚀 Getting Started
-
-### 1. Clone the repo
-```bash
-git clone https://github.com/jeevanparajuli856/Jeevan-Portfolio-Website
-cd portfolio-website
-```
-
-### 2. Install dependencies
-Using **npm**:
-```bash
-npm install
-```
-
-*(Or use `pnpm install` / `yarn install` if you prefer.)*
-
-### 3. Run the development server
-```bash
-npm run dev
-```
-Now open [http://localhost:3000](http://localhost:3000) in your browser.
-
----
-
-## 🛠️ Build for Production
-```bash
-npm run build
-npm run start
-```
-
 ---
 
 ## 📬 Contact
