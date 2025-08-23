@@ -70,9 +70,8 @@ npm run start
 
 ## 📬 Contact
 - **Name:** Jeevan Parajuli  
-- **Email:** your-email@example.com  
-- **LinkedIn:** [linkedin.com/in/yourprofile](https://linkedin.com/in/yourprofile)  
-- **GitHub:** [github.com/your-username](https://github.com/your-username)
+- **Email:** jeevanparajuli856@gmail.com 
+- **LinkedIn:** [LinkedIn](https://linkedin.com/in/yourprofile)  
 
 ---
 
