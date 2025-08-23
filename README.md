@@ -71,7 +71,7 @@ npm run start
 ## 📬 Contact
 - **Name:** Jeevan Parajuli  
 - **Email:** jeevanparajuli856@gmail.com 
-- **LinkedIn:** [LinkedIn](https://linkedin.com/in/yourprofile)  
+- **LinkedIn:** https://linkedin.com/in/yourprofile
 
 ---
 
