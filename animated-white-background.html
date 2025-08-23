@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated White Background</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: #ffffff;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+        }
+        
+        #net {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            filter: contrast(102%);
+        }
+        
+        .content {
+            position: relative;
+            z-index: 1;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-top: 2rem;
+            color: #333;
+        }
+        
+        p {
+            text-align: center;
+            margin-top: 1rem;
+            color: #666;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="net"></canvas>
+    
+    <div class="content">
+        <h1>Animated White Background</h1>
+        <p>This page features a subtle animated background with colorful blinking nodes. The background remains pure white while small colored circles move and pulse gently behind the content.</p>
+    </div>
+
+    <script>
+        // Tunables
+        const MAX_FPS = 22;
+        const BASE_POINTS = 44;
+        const NODE_SPEED = 0.35;
+        const NODE_RADIUS = 1.6;
+        const BG = "#ffffff";
+        const COLORS = ["#00C2FF", "#00B894", "#8A2BE2", "#FF6B6B", "#FFB200"];
+        const BASE_VIEWPORT_AREA = 1280 * 720;
+        const MIN_NODES = 24;
+        const MAX_NODES = 72;
+        const MAX_DPR = 1.25;
+
+        class AnimatedBackground {
+            constructor() {
+                this.canvas = document.getElementById('net');
+                this.ctx = this.canvas.getContext('2d');
+                this.nodes = [];
+                this.lastTime = 0;
+                this.frameInterval = 1000 / MAX_FPS;
+                this.isVisible = true;
+                
+                this.init();
+                this.setupEventListeners();
+                this.animate();
+            }
+
+            init() {
+                this.resize();
+                this.createNodes();
+            }
+
+            setupEventListeners() {
+                window.addEventListener('resize', () => this.resize());
+                
+                document.addEventListener('visibilitychange', () => {
+                    this.isVisible = !document.hidden;
+                });
+            }
+
+            resize() {
+                const rect = this.canvas.getBoundingClientRect();
+                const dpr = Math.min(window.devicePixelRatio || 1, MAX_DPR);
+                
+                this.canvas.width = rect.width * dpr;
+                this.canvas.height = rect.height * dpr;
+                this.canvas.style.width = rect.width + 'px';
+                this.canvas.style.height = rect.height + 'px';
+                
+                this.ctx.scale(dpr, dpr);
+                
+                this.width = rect.width;
+                this.height = rect.height;
+                
+                this.updateNodeCount();
+            }
+
+            updateNodeCount() {
+                const currentArea = this.width * this.height;
+                const targetCount = Math.round((currentArea / BASE_VIEWPORT_AREA) * BASE_POINTS);
+                const clampedCount = Math.max(MIN_NODES, Math.min(MAX_NODES, targetCount));
+                
+                while (this.nodes.length < clampedCount) {
+                    this.nodes.push(this.createNode());
+                }
+                
+                while (this.nodes.length > clampedCount) {
+                    this.nodes.pop();
+                }
+            }
+
+            createNodes() {
+                this.nodes = [];
+                this.updateNodeCount();
+            }
+
+            createNode() {
+                return {
+                    x: Math.random() * this.width,
+                    y: Math.random() * this.height,
+                    vx: (Math.random() - 0.5) * NODE_SPEED,
+                    vy: (Math.random() - 0.5) * NODE_SPEED,
+                    color: COLORS[Math.floor(Math.random() * COLORS.length)],
+                    opacity: 0.35 + Math.random() * 0.65,
+                    opacityDirection: Math.random() > 0.5 ? 1 : -1,
+                    blinkSpeed: 0.02 + Math.random() * 0.03,
+                    phase: Math.random() * Math.PI * 2
+                };
+            }
+
+            updateNodes(deltaTime) {
+                const speedMultiplier = this.getSpeedMultiplier();
+                
+                this.nodes.forEach(node => {
+                    // Update position
+                    node.x += node.vx * speedMultiplier;
+                    node.y += node.vy * speedMultiplier;
+                    
+                    // Bounce off walls
+                    if (node.x <= NODE_RADIUS || node.x >= this.width - NODE_RADIUS) {
+                        node.vx *= -1;
+                        node.x = Math.max(NODE_RADIUS, Math.min(this.width - NODE_RADIUS, node.x));
+                    }
+                    
+                    if (node.y <= NODE_RADIUS || node.y >= this.height - NODE_RADIUS) {
+                        node.vy *= -1;
+                        node.y = Math.max(NODE_RADIUS, Math.min(this.height - NODE_RADIUS, node.y));
+                    }
+                    
+                    // Update opacity for blinking effect
+                    node.phase += node.blinkSpeed * speedMultiplier;
+                    node.opacity = 0.35 + (Math.sin(node.phase) + 1) * 0.325;
+                });
+            }
+
+            getSpeedMultiplier() {
+                let multiplier = 1;
+                
+                // Check for Data Saver or slow connection
+                if (navigator.connection) {
+                    if (navigator.connection.saveData || navigator.connection.effectiveType === '2g') {
+                        multiplier *= 0.7;
+                    }
+                }
+                
+                return multiplier;
+            }
+
+            draw() {
+                // Clear canvas with white background
+                this.ctx.fillStyle = BG;
+                this.ctx.fillRect(0, 0, this.width, this.height);
+                
+                // Draw nodes
+                this.nodes.forEach(node => {
+                    this.ctx.globalAlpha = node.opacity;
+                    this.ctx.fillStyle = node.color;
+                    this.ctx.beginPath();
+                    this.ctx.arc(node.x, node.y, NODE_RADIUS, 0, Math.PI * 2);
+                    this.ctx.fill();
+                });
+                
+                this.ctx.globalAlpha = 1;
+            }
+
+            animate(currentTime = 0) {
+                if (!this.isVisible) {
+                    requestAnimationFrame((time) => this.animate(time));
+                    return;
+                }
+                
+                const deltaTime = currentTime - this.lastTime;
+                
+                if (deltaTime >= this.frameInterval) {
+                    this.updateNodes(deltaTime);
+                    this.draw();
+                    this.lastTime = currentTime - (deltaTime % this.frameInterval);
+                }
+                
+                requestAnimationFrame((time) => this.animate(time));
+            }
+        }
+
+        // Initialize when DOM is loaded
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => new AnimatedBackground());
+        } else {
+            new AnimatedBackground();
+        }
+    </script>
+</body>
+</html>
