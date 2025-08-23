@@ -68,11 +68,6 @@ npm run start
 
 ---
 
-## 📸 Screenshots
-_Add screenshots or GIFs of your portfolio here._
-
----
-
 ## 📬 Contact
 - **Name:** Jeevan Parajuli  
 - **Email:** your-email@example.com  
