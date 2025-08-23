@@ -20,6 +20,8 @@ import {
   Award,
   Download,
   ArrowRight,
+  Menu,
+  X,
 } from "lucide-react"
 import { TypingAnimation } from "@/components/typing-animation"
 import { useState, useEffect } from "react"
@@ -27,6 +29,7 @@ import { useState, useEffect } from "react"
 export default function Portfolio() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMessageExpanded, setIsMessageExpanded] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -36,12 +39,83 @@ export default function Portfolio() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
+  useEffect(() => {
+    // Check for reduced motion preference
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+
+    if (prefersReducedMotion) {
+      // If user prefers reduced motion, make all elements visible immediately
+      document.querySelectorAll(".scroll-reveal").forEach((el) => {
+        el.classList.add("revealed")
+      })
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("revealed")
+            observer.unobserve(entry.target) // Only animate once
+          }
+        })
+      },
+      {
+        threshold: 0.15,
+        rootMargin: "0px 0px -50px 0px",
+      },
+    )
+
+    // Observe all scroll-reveal elements
+    const elements = document.querySelectorAll(".scroll-reveal")
+    elements.forEach((el) => observer.observe(el))
+
+    return () => observer.disconnect()
+  }, [])
+
   const scrollToProjects = () => {
     document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })
   }
 
+  const handleMobileNavClick = (href: string) => {
+    setIsMobileMenuOpen(false)
+    if (href.startsWith("#")) {
+      document.querySelector(href)?.scrollIntoView({ behavior: "smooth" })
+    }
+  }
+
   return (
     <div className="min-h-screen bg-white relative cyber-grid">
+      <style jsx>{`
+        .scroll-reveal {
+          opacity: 0;
+          transform: translateY(20px);
+          transition: opacity 400ms cubic-bezier(0.22, 1, 0.36, 1), 
+                      transform 400ms cubic-bezier(0.22, 1, 0.36, 1);
+          will-change: opacity, transform;
+        }
+        
+        .scroll-reveal.revealed {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        
+        /* Staggered delays for sibling elements */
+        .scroll-reveal.delay-100 { transition-delay: 100ms; }
+        .scroll-reveal.delay-200 { transition-delay: 200ms; }
+        .scroll-reveal.delay-300 { transition-delay: 300ms; }
+        .scroll-reveal.delay-400 { transition-delay: 400ms; }
+        .scroll-reveal.delay-500 { transition-delay: 500ms; }
+        
+        @media (prefers-reduced-motion: reduce) {
+          .scroll-reveal {
+            opacity: 1;
+            transform: none;
+            transition: none;
+          }
+        }
+      `}</style>
+
       <div className="relative z-10">
         <nav
           className={`fixed top-0 w-full z-[1000] transition-all duration-500 ease-in-out ${
@@ -65,9 +139,10 @@ export default function Portfolio() {
                   isScrolled ? "text-lg opacity-100" : "text-xl opacity-100"
                 }`}
               >
-                Jeevan Parajuli
+                Jeevan
               </div>
-              <div className={`flex ${isScrolled ? "justify-center flex-1 mx-6" : "flex-1 justify-center"}`}>
+
+              <div className={`hidden md:flex ${isScrolled ? "justify-center flex-1 mx-6" : "flex-1 justify-center"}`}>
                 <div className={`flex transition-all duration-500 ${isScrolled ? "space-x-4" : "space-x-8"}`}>
                   <a
                     href="#home"
@@ -95,10 +170,11 @@ export default function Portfolio() {
                   </a>
                 </div>
               </div>
+
               <Button
                 size={isScrolled ? "sm" : "sm"}
                 variant="outline"
-                className={`border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground transition-all duration-500 bg-transparent ${
+                className={`hidden md:inline-flex border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground transition-all duration-500 bg-transparent ${
                   isScrolled ? "text-xs px-3 py-1" : ""
                 }`}
                 asChild
@@ -108,9 +184,66 @@ export default function Portfolio() {
                   Resume
                 </a>
               </Button>
+
+              <Button variant="ghost" size="sm" className="md:hidden p-2" onClick={() => setIsMobileMenuOpen(true)}>
+                <Menu className="w-5 h-5" />
+              </Button>
             </div>
           </div>
         </nav>
+
+        {isMobileMenuOpen && (
+          <div className="fixed inset-0 z-[1001] md:hidden">
+            <div className="absolute inset-0 bg-black/50" onClick={() => setIsMobileMenuOpen(false)} />
+            <div className="absolute right-0 top-0 h-full w-80 bg-white shadow-xl">
+              <div className="flex justify-end p-4">
+                <Button variant="ghost" size="sm" onClick={() => setIsMobileMenuOpen(false)} className="p-2">
+                  <X className="w-5 h-5" />
+                </Button>
+              </div>
+              <div className="flex flex-col space-y-6 px-6 py-4">
+                <a
+                  href="#home"
+                  className="text-lg font-medium text-muted-foreground hover:text-secondary transition-colors"
+                  onClick={() => handleMobileNavClick("#home")}
+                >
+                  Home
+                </a>
+                <a
+                  href="#about"
+                  className="text-lg font-medium text-muted-foreground hover:text-secondary transition-colors"
+                  onClick={() => handleMobileNavClick("#about")}
+                >
+                  About
+                </a>
+                <a
+                  href="#projects"
+                  className="text-lg font-medium text-muted-foreground hover:text-secondary transition-colors"
+                  onClick={() => handleMobileNavClick("#projects")}
+                >
+                  Project
+                </a>
+                <a
+                  href="#contact"
+                  className="text-lg font-medium text-muted-foreground hover:text-secondary transition-colors"
+                  onClick={() => handleMobileNavClick("#contact")}
+                >
+                  Contact
+                </a>
+                <Button
+                  variant="outline"
+                  className="border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground bg-transparent w-fit"
+                  asChild
+                >
+                  <a href="/Resume-Jeevan-Parajuli.pdf" download="resume.pdf">
+                    <Download className="w-4 h-4 mr-2" />
+                    Resume
+                  </a>
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
 
         <section id="home" className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 cyber-grid">
           <div className="max-w-4xl mx-auto text-center relative z-10">
@@ -150,9 +283,9 @@ export default function Portfolio() {
 
         <section id="about" className="py-20 px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 cyber-heading">About Me</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 cyber-heading scroll-reveal">About Me</h2>
             <div className="grid md:grid-cols-2 gap-12 items-start">
-              <div>
+              <div className="scroll-reveal delay-100">
                 <p className="text-lg text-muted-foreground mb-6 leading-relaxed text-justify">
                   I am a dedicated Cybersecurity Analyst and Security Engineer in training with a passion for secure
                   software development and data-driven security solutions. My background includes threat detection,
@@ -165,7 +298,7 @@ export default function Portfolio() {
                   evolving cyber threats and contributing to stronger digital infrastructures.
                 </p>
               </div>
-              <Card className="border-border glow-blue shadow-lg hover:shadow-xl transition-all duration-300">
+              <Card className="border-border glow-blue shadow-lg hover:shadow-xl transition-all duration-300 scroll-reveal delay-200">
                 <CardHeader>
                   <CardTitle className="font-mono text-xl">Core Competencies</CardTitle>
                 </CardHeader>
@@ -196,7 +329,7 @@ export default function Portfolio() {
                   </div>
                   <div className="flex items-center gap-3">
                     <Terminal className="w-5 h-5 text-secondary" />
-                    <span>Exploitation Tools (Metasploit, Nmap, and others)</span>
+                    <span>Exploitation Tools (Metasploit, Nmap, BurpSuite and others)</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <Shield className="w-5 h-5 text-secondary" />
@@ -210,8 +343,10 @@ export default function Portfolio() {
 
         <section className="py-20 px-4 sm:px-6 lg:px-8 bg-muted/30">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 cyber-heading">Professional Journey</h2>
-            <p className="text-lg text-muted-foreground text-center mb-16 max-w-2xl mx-auto">
+            <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 cyber-heading scroll-reveal">
+              Professional Journey
+            </h2>
+            <p className="text-lg text-muted-foreground text-center mb-16 max-w-2xl mx-auto scroll-reveal delay-100">
               A timeline highlighting my roles, responsibilities, and the key competencies I developed throughout my
               journey.
             </p>
@@ -249,7 +384,9 @@ export default function Portfolio() {
                 ].map((item, index) => (
                   <div key={index} className="relative flex items-start gap-6">
                     <div className="w-4 h-4 bg-secondary rounded-full border-4 border-background relative z-10 glow-green"></div>
-                    <Card className="flex-1 border-border hover:glow-blue transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1">
+                    <Card
+                      className={`flex-1 border-border hover:glow-blue transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1 scroll-reveal delay-${(index + 2) * 100}`}
+                    >
                       <CardHeader>
                         <div className="flex justify-between items-start mb-2">
                           <CardTitle className="font-mono">{item.title}</CardTitle>
@@ -279,21 +416,16 @@ export default function Portfolio() {
 
         <section className="py-20 px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 cyber-heading">Academic Journey</h2>
-            <p className="text-lg text-muted-foreground text-center mb-16 max-w-2xl mx-auto">
+            <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 cyber-heading scroll-reveal">
+              Academic Journey
+            </h2>
+            <p className="text-lg text-muted-foreground text-center mb-16 max-w-2xl mx-auto scroll-reveal delay-100">
               An overview of my academic background and the certifications I have earned along the way.
             </p>
             <div className="relative">
               <div className="absolute right-8 top-0 bottom-0 w-0.5 bg-accent"></div>
               <div className="space-y-12">
                 {[
-                  {
-                    title: "BS in Computer Science",
-                    organization: "University of Louisiana Monroe",
-                    year: "Jan 2024- Dec 2027",
-                    description:
-                      "Bachelor's degree in Computer Science with focus on cybersecurity and software engineering.",
-                  },
                   {
                     title: "CompTIA CySA+",
                     organization: "CompTIA",
@@ -303,13 +435,22 @@ export default function Portfolio() {
                   {
                     title: "CompTIA Security+",
                     organization: "CompTIA",
-                    year: "May 202",
+                    year: "May 2025",
                     description:
                       "Foundation-level cybersecurity certification covering security concept, practices and compliance.",
                   },
+                  {
+                    title: "BS in Computer Science",
+                    organization: "University of Louisiana Monroe",
+                    year: "Jan 2024- Dec 2027",
+                    description:
+                      "Bachelor's degree in Computer Science with focus on cybersecurity and software engineering.",
+                  },
                 ].map((cert, index) => (
                   <div key={index} className="relative flex items-start gap-6 justify-end">
-                    <Card className="flex-1 max-w-md border-border hover:glow-green transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1">
+                    <Card
+                      className={`flex-1 max-w-md border-border hover:glow-green transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1 scroll-reveal delay-${(index + 2) * 100}`}
+                    >
                       <CardHeader>
                         <div className="flex justify-between items-start mb-2">
                           <CardTitle className="font-mono flex items-center gap-2">
@@ -336,8 +477,8 @@ export default function Portfolio() {
 
         <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8 bg-muted/30">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 cyber-heading">Projects</h2>
-            <p className="text-lg text-muted-foreground text-center mb-16 max-w-2xl mx-auto">
+            <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 cyber-heading scroll-reveal">Projects</h2>
+            <p className="text-lg text-muted-foreground text-center mb-16 max-w-2xl mx-auto scroll-reveal delay-100">
               Projects that strengthened my technical expertise and problem-solving skills.
             </p>
             <div className="grid md:grid-cols-2 gap-8">
@@ -389,7 +530,7 @@ export default function Portfolio() {
               ].map((project, index) => (
                 <Card
                   key={index}
-                  className="group hover:glow-green transition-all duration-300 border-border shadow-lg hover:shadow-xl hover:-translate-y-1"
+                  className={`group hover:glow-green transition-all duration-300 border-border shadow-lg hover:shadow-xl hover:-translate-y-1 scroll-reveal delay-${(index + 2) * 100}`}
                 >
                   <div className="aspect-video bg-gradient-to-br from-secondary/20 to-accent/20 rounded-t-lg overflow-hidden">
                     <img
@@ -441,8 +582,10 @@ export default function Portfolio() {
 
         <section className="py-20 px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 cyber-heading">Insights & Articles</h2>
-            <p className="text-lg text-muted-foreground text-center mb-16 max-w-2xl mx-auto">
+            <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 cyber-heading scroll-reveal">
+              Insights & Articles
+            </h2>
+            <p className="text-lg text-muted-foreground text-center mb-16 max-w-2xl mx-auto scroll-reveal delay-100">
               Sharing my perspectives and insights through blogs and articles.
             </p>
             <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
@@ -463,12 +606,12 @@ export default function Portfolio() {
                   date: "Nov 2024",
                   readTime: "5 min read",
                   mediumUrl: "",
-                  image: "/rateLimit.png",
+                  image: "/rate-limiting-article.png",
                 },
               ].map((article, index) => (
                 <Card
                   key={index}
-                  className="group hover:glow-blue transition-all duration-300 border-border shadow-lg hover:shadow-xl hover:-translate-y-1 cursor-pointer"
+                  className={`group hover:glow-blue transition-all duration-300 border-border shadow-lg hover:shadow-xl hover:-translate-y-1 cursor-pointer scroll-reveal delay-${(index + 2) * 100}`}
                   onClick={() => window.open(article.mediumUrl, "_blank")}
                 >
                   <div className="aspect-video bg-gradient-to-br from-accent/20 to-secondary/20 rounded-t-lg overflow-hidden">
@@ -500,9 +643,11 @@ export default function Portfolio() {
 
         <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 bg-muted/30">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 cyber-heading">Get in Touch</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 cyber-heading scroll-reveal">
+              Get in Touch
+            </h2>
             <div className="grid md:grid-cols-2 gap-12">
-              <div className="flex flex-col justify-center">
+              <div className="flex flex-col justify-center scroll-reveal delay-100">
                 <h3 className="text-2xl cyber-heading font-semibold mb-4">Let's Connect</h3>
                 <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
                   I'm always interested in discussing cybersecurity challenges, secure development practices, or
@@ -531,9 +676,20 @@ export default function Portfolio() {
                       LinkedIn
                     </a>
                   </Button>
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="border-red-500 text-red-500 hover:bg-red-500 hover:text-white glow-red bg-transparent"
+                    asChild
+                  >
+                    <a href="https://tryhackme.com/p/jeevanparajuli85" target="_blank" rel="noopener noreferrer">
+                      <Shield className="w-5 h-5 mr-2" />
+                      TryHackMe
+                    </a>
+                  </Button>
                 </div>
               </div>
-              <Card className="border-border glow-blue shadow-lg">
+              <Card className="border-border glow-blue shadow-lg scroll-reveal delay-200">
                 <CardHeader>
                   <CardTitle className="cyber-heading">Send a Message</CardTitle>
                 </CardHeader>
