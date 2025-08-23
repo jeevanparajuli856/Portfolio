@@ -102,9 +102,12 @@ export default function Portfolio() {
                 className={`border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground transition-all duration-500 bg-transparent ${
                   isScrolled ? "text-xs px-3 py-1" : ""
                 }`}
+                asChild
               >
-                <Download className={`${isScrolled ? "w-3 h-3 mr-1" : "w-4 h-4 mr-2"}`} />
-                Resume
+                <a href="/resume.pdf" download="resume.pdf">
+                  <Download className={`${isScrolled ? "w-3 h-3 mr-1" : "w-4 h-4 mr-2"}`} />
+                  Resume
+                </a>
               </Button>
             </div>
           </div>
@@ -115,7 +118,7 @@ export default function Portfolio() {
             <div className="mb-8">
               <div className="mb-6">
                 <img
-                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/jeevan_30170017.jpg-acHnhnYjqcruhBfYyKLK8qlkKyYA39.jpeg"
+                  src="/jeevan_30170017.jpg"
                   alt="Jeevan Parajuli"
                   className="w-48 h-48 rounded-full mx-auto mb-6 border-4 border-secondary glow-green"
                 />
@@ -154,8 +157,7 @@ export default function Portfolio() {
                 <p className="text-lg text-muted-foreground mb-6 leading-relaxed text-justify">
                   I am a dedicated Cybersecurity Analyst and Security Engineer in training with a passion for secure
                   software development and data-driven security solutions. My background includes threat detection,
-                  vulnerability assessment, incident response, and secure coding practices, along with experience in
-                  building security tools and working with SIEM, EDR, and cloud environments.
+                  vulnerability assessment, incident response, and secure coding practices.
                 </p>
                 <p className="text-lg text-muted-foreground mb-8 leading-relaxed text-justify">
                   My approach focuses on combining technical skills with analytical thinking to identify security gaps,
@@ -208,7 +210,7 @@ export default function Portfolio() {
         </section>
 
         <section className="py-20 px-4 sm:px-6 lg:px-8 bg-muted/30">
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-6xl mx-auto">
             <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 cyber-heading">Professional Journey</h2>
             <p className="text-lg text-muted-foreground text-center mb-16 max-w-2xl mx-auto">
               A timeline highlighting my roles, responsibilities, and the key competencies I developed throughout my
@@ -219,25 +221,31 @@ export default function Portfolio() {
               <div className="space-y-12">
                 {[
                   {
-                    date: "2024 - Present",
+                    date: "Jun 2025 - Present",
                     title: "Project Lead",
                     organization: "University of Louisiana Monroe",
-                    description:
-                      "Leading a team of 4 to build an interactive web platform, funded by the Louisiana Education Board, to train students in AI ethics and risk.",
+                    experience: [
+                      "Leading a team of 4 to build an interactive web platform, funded by the Louisiana Education Board, to train students in AI ethics.",
+                      "Developing a 3D interactive training game integrated into a web platform to boost student engagement.",
+                    ],
                   },
                   {
-                    date: "2022 - 2024",
+                    date: "Sep 2024 - Present",
                     title: "IT Support Technician",
-                    organization: "University IT Department",
-                    description:
-                      "Provided technical support and maintained IT infrastructure while developing cybersecurity expertise.",
+                    organization: "University of Louisiana Monroe",
+                    experience: [
+                      "Responded to 12+ endpoint security incidents flagged by CrowdStrike, performing initial triage, isolating compromised system.",
+                      "Improved security and user satisfaction by 40% for over 8,000+ users by assisting IAM operations in Azure AD (RBAC,MFA).",
+                    ],
                   },
                   {
-                    date: "2021 - 2022",
-                    title: "Vice President of GDSC ULM",
-                    organization: "Google Developer Student Club",
-                    description:
-                      "Led student developer community initiatives and organized technology workshops and events.",
+                    date: "Jul 2025 - Present",
+                    title: "Vice President",
+                    organization: "Google Developer Student Club ULM",
+                    experience: [
+                      "Driving club growth and member participation by directing bi-weekly 'CodeClash' competition",
+                      "Serving as a key liaison between students and professionals to plan a university-wide ULM TechExpo for Fall 2025",
+                    ],
                   },
                 ].map((item, index) => (
                   <div key={index} className="relative flex items-start gap-6">
@@ -253,7 +261,14 @@ export default function Portfolio() {
                         <CardDescription className="font-semibold text-accent">{item.organization}</CardDescription>
                       </CardHeader>
                       <CardContent>
-                        <p className="text-muted-foreground">{item.description}</p>
+                        <ul className="space-y-2">
+                          {item.experience.map((bullet, bulletIndex) => (
+                            <li key={bulletIndex} className="flex items-start gap-2 text-muted-foreground">
+                              <span className="w-1.5 h-1.5 bg-secondary rounded-full mt-2 flex-shrink-0"></span>
+                              <span>{bullet}</span>
+                            </li>
+                          ))}
+                        </ul>
                       </CardContent>
                     </Card>
                   </div>
@@ -276,7 +291,7 @@ export default function Portfolio() {
                   {
                     title: "BS in Computer Science",
                     organization: "University of Louisiana Monroe",
-                    year: "2019-2023",
+                    year: "Jan 2024- Dec 2027",
                     description:
                       "Bachelor's degree in Computer Science with focus on cybersecurity and software engineering.",
                   },
@@ -291,7 +306,7 @@ export default function Portfolio() {
                     organization: "CompTIA",
                     year: "2024",
                     description:
-                      "Foundation-level cybersecurity certification covering security concepts and practices.",
+                      "Foundation-level cybersecurity certification covering security concept, practices and compliance.",
                   },
                 ].map((cert, index) => (
                   <div key={index} className="relative flex items-start gap-6 justify-end">
@@ -329,45 +344,53 @@ export default function Portfolio() {
             <div className="grid md:grid-cols-2 gap-8">
               {[
                 {
-                  title: "Threat Intelligence Dashboard",
+                  title: "The Path of Function",
                   description:
-                    "Real-time security monitoring dashboard with threat visualization and automated alerting system.",
-                  tech: ["Python", "React", "D3.js", "Splunk API"],
+                    "Developed an interactive visual novel game in Ren'Py to teach Python functions — Winner at ULM Tech Expo 2024.",
+                  tech: ["Python", "RenPy"],
+                  githubUrl: "https://github.com/jeevanparajuli856/The-Path-Of-Function",
+                  liveUrl: "https://jeevanparajuli856.itch.io/thepathofthefunction",
                   github: true,
                   live: true,
                   image: "/modern-web-app-interface.png",
                 },
                 {
-                  title: "Secure Code Analyzer",
+                  title: "Integrixa",
                   description:
-                    "Static analysis tool for identifying security vulnerabilities in source code with OWASP compliance.",
-                  tech: ["Java", "Spring Boot", "SonarQube", "Docker"],
+                    "Developed a low-overhead, real-time FIM tool for Windows using Python and SHA-256, with Telegram alerts for file changes.",
+                  tech: ["Python", "APIs"],
+                  githubUrl: "https://github.com/jeevanparajuli856/Integrixa",
+                  liveUrl: "",
                   github: true,
                   live: false,
-                  image: "/professional-design-workspace.png",
+                  image: "/IntegrixaProject.png",
                 },
                 {
-                  title: "Network Security Monitor",
+                  title: "Fedo C2 Data Enrichment",
                   description:
-                    "Automated network traffic analysis tool for detecting anomalous behavior and potential threats.",
-                  tech: ["Python", "Wireshark", "ELK Stack", "Machine Learning"],
+                    "Built a Python pipeline to enrich Feodo Tracker C2 IP data with geo/ASN/port details and visualize in Power BI dashboards. ",
+                  tech: ["Python", "Panda", "Power BI"],
+                  githubUrl: "https://github.com/jeevanparajuli856/Feodo-C2-DataEnrichment",
+                  liveUrl: "",
                   github: true,
                   live: false,
                   image: "/modern-web-app-interface.png",
                 },
                 {
-                  title: "Incident Response Automation",
+                  title: "Lateral Movement Detection System",
                   description:
-                    "Automated incident response system with playbook execution and forensic data collection.",
+                    "Architecting an enterprise-grade threat detection system from an inductive ML model (IEEE S&P 2024) in collaboration with Dr. Elias Harb(LSU), designed to identify lateral movement",
                   tech: ["PowerShell", "Python", "SIEM Integration", "REST APIs"],
-                  github: true,
+                  githubUrl: "",
+                  liveUrl: "",
+                  github: false,
                   live: false,
                   image: "/professional-design-workspace.png",
                 },
               ].map((project, index) => (
                 <Card
                   key={index}
-                  className="group hover:glow-green transition-all duration-300 border-border shadow-lg hover:shadow-xl overflow-hidden"
+                  className="group hover:glow-green transition-all duration-300 border-border shadow-lg hover:shadow-xl hover:-translate-y-1"
                 >
                   <div className="aspect-video bg-gradient-to-br from-secondary/20 to-accent/20 rounded-t-lg overflow-hidden">
                     <img
@@ -389,17 +412,24 @@ export default function Portfolio() {
                       ))}
                     </div>
                     <div className="flex gap-2">
-                      <Button size="sm" variant="outline" className="flex-1 bg-transparent">
-                        <Github className="w-4 h-4 mr-2" />
-                        GitHub
-                      </Button>
+                      {project.github && (
+                        <Button size="sm" variant="outline" className="flex-1 bg-transparent" asChild>
+                          <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                            <Github className="w-4 h-4 mr-2" />
+                            GitHub
+                          </a>
+                        </Button>
+                      )}
                       {project.live && (
                         <Button
                           size="sm"
                           className="flex-1 bg-secondary text-secondary-foreground hover:bg-secondary/90"
+                          asChild
                         >
-                          <ExternalLink className="w-4 h-4 mr-2" />
-                          Live Demo
+                          <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                            <ExternalLink className="w-4 h-4 mr-2" />
+                            Live Demo
+                          </a>
                         </Button>
                       )}
                     </div>
@@ -419,22 +449,26 @@ export default function Portfolio() {
             <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
               {[
                 {
-                  title: "The Future of Cybersecurity in Cloud Computing",
-                  description: "Exploring emerging threats and security strategies for cloud-native applications.",
+                  title: "Building Integrixa: My First Defensive Cybersecurity Tool",
+                  description:
+                    "Exploring my journey into FIM concepts and the motivation behind developing my own tool.",
                   date: "Dec 2024",
                   readTime: "5 min read",
+                  mediumUrl:
+                    "https://medium.com/@jeevanparajuli856/building-filesentinel-my-first-defensive-cybersecurity-tool-and-an-unexpected-friendship-with-6f9fa6c60e54",
                 },
                 {
-                  title: "Building Secure APIs: A Developer's Guide",
-                  description:
-                    "Best practices for implementing security in RESTful APIs and microservices architecture.",
+                  title: "Flawed authentication rate limiting",
+                  description: "Explaining how I discovered my first rate limit bug through a VDP.",
                   date: "Nov 2024",
-                  readTime: "8 min read",
+                  readTime: "5 min read",
+                  mediumUrl: "",
                 },
               ].map((article, index) => (
                 <Card
                   key={index}
                   className="group hover:glow-blue transition-all duration-300 border-border shadow-lg hover:shadow-xl hover:-translate-y-1 cursor-pointer"
+                  onClick={() => window.open(article.mediumUrl, "_blank")}
                 >
                   <div className="aspect-video bg-gradient-to-br from-accent/20 to-secondary/20 rounded-t-lg flex items-center justify-center">
                     <BookOpen className="w-12 h-12 text-muted-foreground/50" />
@@ -494,7 +528,7 @@ export default function Portfolio() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" className="space-y-4">
-                    <input type="hidden" name="access_key" value="ahc" />
+                    <input type="hidden" name="access_key" value="63d84c9b-f310-41a1-8116-ed9df3be393c" />
                     <input type="hidden" name="redirect" value="https://web3forms.com/success" />
 
                     <div>
@@ -546,7 +580,7 @@ export default function Portfolio() {
         <footer className="py-8 px-4 sm:px-6 lg:px-8 border-t border-border bg-muted/30">
           <div className="max-w-6xl mx-auto text-center">
             <p className="text-muted-foreground cyber-heading">
-              © 2024 Jeevan Parajuli. Securing the digital world, one line of code at a time.
+              © 2025 Jeevan Parajuli. Securing the digital world, one line of code at a time.
             </p>
           </div>
         </footer>
