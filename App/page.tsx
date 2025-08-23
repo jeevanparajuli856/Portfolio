@@ -18,7 +18,6 @@ import {
   Terminal,
   GraduationCap,
   Award,
-  BookOpen,
   Download,
   ArrowRight,
 } from "lucide-react"
@@ -104,7 +103,7 @@ export default function Portfolio() {
                 }`}
                 asChild
               >
-                <a href="/resume.pdf" download="resume.pdf">
+                <a href="/Resume-Jeevan-Parajuli.pdf" download="resume.pdf">
                   <Download className={`${isScrolled ? "w-3 h-3 mr-1" : "w-4 h-4 mr-2"}`} />
                   Resume
                 </a>
@@ -118,7 +117,7 @@ export default function Portfolio() {
             <div className="mb-8">
               <div className="mb-6">
                 <img
-                  src="/jeevan_30170017.jpg"
+                  src="/PhotoHeadshot.jpg"
                   alt="Jeevan Parajuli"
                   className="w-48 h-48 rounded-full mx-auto mb-6 border-4 border-secondary glow-green"
                 />
@@ -298,13 +297,13 @@ export default function Portfolio() {
                   {
                     title: "CompTIA CySA+",
                     organization: "CompTIA",
-                    year: "2025",
+                    year: "Jun 2025",
                     description: "Cybersecurity Analyst certification focusing on threat detection and analysis.",
                   },
                   {
                     title: "CompTIA Security+",
                     organization: "CompTIA",
-                    year: "2024",
+                    year: "May 202",
                     description:
                       "Foundation-level cybersecurity certification covering security concept, practices and compliance.",
                   },
@@ -352,7 +351,7 @@ export default function Portfolio() {
                   liveUrl: "https://jeevanparajuli856.itch.io/thepathofthefunction",
                   github: true,
                   live: true,
-                  image: "/modern-web-app-interface.png",
+                  image: "/ThePathProject.png",
                 },
                 {
                   title: "Integrixa",
@@ -374,7 +373,7 @@ export default function Portfolio() {
                   liveUrl: "",
                   github: true,
                   live: false,
-                  image: "/modern-web-app-interface.png",
+                  image: "/C2Analysis.png",
                 },
                 {
                   title: "Lateral Movement Detection System",
@@ -385,7 +384,7 @@ export default function Portfolio() {
                   liveUrl: "",
                   github: false,
                   live: false,
-                  image: "/professional-design-workspace.png",
+                  image: "/Jbeil.png",
                 },
               ].map((project, index) => (
                 <Card
@@ -456,6 +455,7 @@ export default function Portfolio() {
                   readTime: "5 min read",
                   mediumUrl:
                     "https://medium.com/@jeevanparajuli856/building-filesentinel-my-first-defensive-cybersecurity-tool-and-an-unexpected-friendship-with-6f9fa6c60e54",
+                  image: "/IntegrixaProject.png",
                 },
                 {
                   title: "Flawed authentication rate limiting",
@@ -463,6 +463,7 @@ export default function Portfolio() {
                   date: "Nov 2024",
                   readTime: "5 min read",
                   mediumUrl: "",
+                  image: "/rateLimit.png",
                 },
               ].map((article, index) => (
                 <Card
@@ -470,8 +471,12 @@ export default function Portfolio() {
                   className="group hover:glow-blue transition-all duration-300 border-border shadow-lg hover:shadow-xl hover:-translate-y-1 cursor-pointer"
                   onClick={() => window.open(article.mediumUrl, "_blank")}
                 >
-                  <div className="aspect-video bg-gradient-to-br from-accent/20 to-secondary/20 rounded-t-lg flex items-center justify-center">
-                    <BookOpen className="w-12 h-12 text-muted-foreground/50" />
+                  <div className="aspect-video bg-gradient-to-br from-accent/20 to-secondary/20 rounded-t-lg overflow-hidden">
+                    <img
+                      src={article.image || "/placeholder.svg?height=200&width=400&query=article thumbnail"}
+                      alt={article.title}
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
                   </div>
                   <CardHeader>
                     <div className="flex justify-between items-start mb-2">
