@@ -513,17 +513,23 @@ export default function Portfolio() {
                     size="lg"
                     variant="outline"
                     className="border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground glow-green bg-transparent"
+                    asChild
                   >
-                    <Github className="w-5 h-5 mr-2" />
-                    GitHub
+                    <a href="https://github.com/jeevanparajuli856/" target="_blank" rel="noopener noreferrer">
+                      <Github className="w-5 h-5 mr-2" />
+                      GitHub
+                    </a>
                   </Button>
                   <Button
                     size="lg"
                     variant="outline"
                     className="border-accent text-accent hover:bg-accent hover:text-accent-foreground glow-blue bg-transparent"
+                    asChild
                   >
-                    <Linkedin className="w-5 h-5 mr-2" />
-                    LinkedIn
+                    <a href="https://www.linkedin.com/in/jeevanparajuli856/" target="_blank" rel="noopener noreferrer">
+                      <Linkedin className="w-5 h-5 mr-2" />
+                      LinkedIn
+                    </a>
                   </Button>
                 </div>
               </div>
