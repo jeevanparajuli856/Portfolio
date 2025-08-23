@@ -6,7 +6,7 @@ It showcases my projects, skills, and experiences, and serves as a central hub t
 ---
 
 ## ✨ Features
-- ⚡ Built with **TypeScript** and **Next.js**  
+- ⚡ Built with **Next.js**  
 - 🎨 Styled with **Tailwind CSS** and custom components  
 - 🌗 Dark / Light theme support  
 - 📱 Fully responsive and mobile-friendly  
