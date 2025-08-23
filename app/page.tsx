@@ -747,7 +747,7 @@ export default function Portfolio() {
         <footer className="py-8 px-4 sm:px-6 lg:px-8 border-t border-border bg-muted/30">
           <div className="max-w-6xl mx-auto text-center">
             <p className="text-muted-foreground cyber-heading">
-              © 2025 Jeevan Parajuli. Securing the digital world, one line of code at a time.
+              © 2024 Jeevan Parajuli. Securing the digital world, one line of code at a time.
             </p>
           </div>
         </footer>
