@@ -481,101 +481,185 @@ export default function Portfolio() {
             <p className="text-lg text-muted-foreground text-center mb-16 max-w-2xl mx-auto scroll-reveal delay-100">
               Projects that strengthened my technical expertise and problem-solving skills.
             </p>
-            <div className="grid md:grid-cols-2 gap-8">
-              {[
-                {
-                  title: "The Path of Function",
-                  description:
-                    "Developed an interactive visual novel game in Ren'Py to teach Python functions — Winner at ULM Tech Expo 2024.",
-                  tech: ["Python", "RenPy"],
-                  githubUrl: "https://github.com/jeevanparajuli856/The-Path-Of-Function",
-                  liveUrl: "https://jeevanparajuli856.itch.io/thepathofthefunction",
-                  github: true,
-                  live: true,
-                  image: "/ThePathProject.png",
-                },
-                {
-                  title: "Integrixa",
-                  description:
-                    "Developed a low-overhead, real-time FIM tool for Windows using Python and SHA-256, with Telegram alerts for file changes.",
-                  tech: ["Python", "APIs"],
-                  githubUrl: "https://github.com/jeevanparajuli856/Integrixa",
-                  liveUrl: "",
-                  github: true,
-                  live: false,
-                  image: "/IntegrixaProject.png",
-                },
-                {
-                  title: "Fedo C2 Data Enrichment",
-                  description:
-                    "Built a Python pipeline to enrich Feodo Tracker C2 IP data with geo/ASN/port details and visualize in Power BI dashboards. ",
-                  tech: ["Python", "Panda", "Power BI"],
-                  githubUrl: "https://github.com/jeevanparajuli856/Feodo-C2-DataEnrichment",
-                  liveUrl: "",
-                  github: true,
-                  live: false,
-                  image: "/C2Analysis.png",
-                },
-                {
-                  title: "Lateral Movement Detection System",
-                  description:
-                    "Architecting an enterprise-grade threat detection system from an inductive ML model (IEEE S&P 2024) in collaboration with Dr. Elias Harb(LSU), designed to identify lateral movement",
-                  tech: ["PowerShell", "Python", "SIEM Integration", "REST APIs"],
-                  githubUrl: "",
-                  liveUrl: "",
-                  github: false,
-                  live: false,
-                  image: "/Jbeil.png",
-                },
-              ].map((project, index) => (
-                <Card
-                  key={index}
-                  className={`group hover:glow-green transition-all duration-300 border-border shadow-lg hover:shadow-xl hover:-translate-y-1 scroll-reveal delay-${(index + 2) * 100}`}
-                >
-                  <div className="aspect-video bg-gradient-to-br from-secondary/20 to-accent/20 rounded-t-lg overflow-hidden">
-                    <img
-                      src={project.image || "/placeholder.svg"}
-                      alt={project.title}
-                      className="w-full h-full object-cover transition-transform duration-300 group-hover:-translate-y-2 group-hover:scale-105"
-                    />
-                  </div>
-                  <CardHeader>
-                    <CardTitle className="font-mono">{project.title}</CardTitle>
-                    <CardDescription>{project.description}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {project.tech.map((tech, techIndex) => (
-                        <Badge key={techIndex} variant="outline" className="text-xs">
-                          {tech}
-                        </Badge>
-                      ))}
+            <div className="space-y-8">
+              {/* First row: 3 cards */}
+              <div className="grid md:grid-cols-3 gap-8">
+                {[
+                  {
+                    title: "Integrixa",
+                    description:
+                      "Developed a low-overhead, real-time FIM tool for Windows using Python and SHA-256, with Telegram alerts for file changes.",
+                    tech: ["Python", "APIs"],
+                    githubUrl: "https://github.com/jeevanparajuli856/Integrixa",
+                    liveUrl: "",
+                    github: true,
+                    live: false,
+                    image: "/IntegrixaProject.png",
+                  },
+                  {
+                    title: "BlueScope",
+                    description:
+                      "Developed a low-overhead, real-time FIM tool for Windows using Python and SHA-256, with Telegram alerts for file changes.",
+                    tech: ["Python", "Blue Low Energy", "Network Security Research"],
+                    githubUrl: "https://github.com/jeevanparajuli856/BlueScope",
+                    liveUrl: "",
+                    github: true,
+                    live: false,
+                    image: "/BlueScope.png",
+                  },
+                  {
+                    title: "Feodo C2 Data Enrichment",
+                    description:
+                      "Built a Python pipeline to enrich Feodo Tracker C2 IP data with geo/ASN/port details and visualize in Power BI dashboards.",
+                    tech: ["Python", "Panda", "Power BI"],
+                    githubUrl: "https://github.com/jeevanparajuli856/Feodo-C2-DataEnrichment",
+                    liveUrl: "",
+                    github: true,
+                    live: false,
+                    image: "/C2Analysis.png",
+                  },
+                ].map((project, index) => (
+                  <Card
+                    key={index}
+                    className={`group hover:glow-green transition-all duration-300 border-border shadow-lg hover:shadow-xl hover:-translate-y-1 scroll-reveal delay-${(index + 2) * 100}`}
+                  >
+                    <div className="aspect-video bg-gradient-to-br from-secondary/20 to-accent/20 rounded-t-lg overflow-hidden">
+                      <img
+                        src={project.image || "/placeholder.svg"}
+                        alt={project.title}
+                        className="w-full h-full object-cover transition-transform duration-300 group-hover:-translate-y-2 group-hover:scale-105"
+                      />
                     </div>
-                    <div className="flex gap-2">
-                      {project.github && (
-                        <Button size="sm" variant="outline" className="flex-1 bg-transparent" asChild>
-                          <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                            <Github className="w-4 h-4 mr-2" />
-                            GitHub
-                          </a>
-                        </Button>
-                      )}
-                      {project.live && (
-                        <Button
-                          size="sm"
-                          className="flex-1 bg-secondary text-secondary-foreground hover:bg-secondary/90"
-                          asChild
-                        >
-                          <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                            <ExternalLink className="w-4 h-4 mr-2" />
-                            Live Demo
-                          </a>
-                        </Button>
-                      )}
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+                    <CardHeader>
+                      <CardTitle className="font-mono">{project.title}</CardTitle>
+                      <CardDescription>{project.description}</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {project.tech.map((tech, techIndex) => (
+                          <Badge key={techIndex} variant="outline" className="text-xs">
+                            {tech}
+                          </Badge>
+                        ))}
+                      </div>
+                      <div className="flex gap-2">
+                        {project.github && (
+                          <Button size="sm" variant="outline" className="flex-1 bg-transparent" asChild>
+                            <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                              <Github className="w-4 h-4 mr-2" />
+                              GitHub
+                            </a>
+                          </Button>
+                        )}
+                        {project.live && (
+                          <Button
+                            size="sm"
+                            className="flex-1 bg-secondary text-secondary-foreground hover:bg-secondary/90"
+                            asChild
+                          >
+                            <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                              <ExternalLink className="w-4 h-4 mr-2" />
+                              Live Demo
+                            </a>
+                          </Button>
+                        )}
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+
+              {/* Second row: 2 cards centered */}
+              <div className="flex justify-center">
+                <div className="grid grid-cols-2 gap-8 max-w-4xl w-full">
+                  {[
+                    {
+                      title: "Lateral Movement Detection System",
+                      description:
+                        "Architecting an enterprise-grade threat detection system from an inductive ML model (IEEE S&P 2024) in collaboration with Dr. Elias Harb(LSU), designed to identify lateral movement",
+                      tech: ["PowerShell", "Python", "SIEM Integration", "REST APIs"],
+                      githubUrl: "",
+                      liveUrl: "",
+                      github: false,
+                      live: false,
+                      image: "/Jbeil.png",
+                    },
+                    {
+                      title: "The Path of Function",
+                      description:
+                        "Developed an interactive visual novel game in Ren'Py to teach Python functions — Winner at ULM Tech Expo 2024.",
+                      tech: ["Python", "RenPy"],
+                      githubUrl: "https://github.com/jeevanparajuli856/The-Path-Of-Function",
+                      liveUrl: "https://jeevanparajuli856.itch.io/thepathofthefunction",
+                      github: true,
+                      live: true,
+                      image: "/ThePathProject.png",
+                    },
+                  ].map((project, index) => (
+                    <Card
+                      key={index}
+                      className={`group hover:glow-green transition-all duration-300 border-border shadow-lg hover:shadow-xl hover:-translate-y-1 scroll-reveal delay-${(index + 5) * 100}`}
+                    >
+                      <div className="aspect-video bg-gradient-to-br from-secondary/20 to-accent/20 rounded-t-lg overflow-hidden">
+                        <img
+                          src={project.image || "/placeholder.svg"}
+                          alt={project.title}
+                          className="w-full h-full object-cover transition-transform duration-300 group-hover:-translate-y-2 group-hover:scale-105"
+                        />
+                      </div>
+                      <CardHeader>
+                        <CardTitle className="font-mono">{project.title}</CardTitle>
+                        <CardDescription>{project.description}</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="flex flex-wrap gap-2 mb-4">
+                          {project.tech.map((tech, techIndex) => (
+                            <Badge key={techIndex} variant="outline" className="text-xs">
+                              {tech}
+                            </Badge>
+                          ))}
+                        </div>
+                        <div className="flex gap-2">
+                          {project.github && (
+                            <Button size="sm" variant="outline" className="flex-1 bg-transparent" asChild>
+                              <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                                <Github className="w-4 h-4 mr-2" />
+                                GitHub
+                              </a>
+                            </Button>
+                          )}
+                          {project.live && (
+                            <Button
+                              size="sm"
+                              className="flex-1 bg-secondary text-secondary-foreground hover:bg-secondary/90"
+                              asChild
+                            >
+                              <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                                <ExternalLink className="w-4 h-4 mr-2" />
+                                Live Demo
+                              </a>
+                            </Button>
+                          )}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="flex justify-center mt-12">
+              <Button
+                size="lg"
+                className="group bg-gradient-to-r from-secondary to-accent text-white hover:from-[#00ff88] hover:to-[#00c2ff] transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-secondary/50 glow-green"
+                asChild
+              >
+                <a href="https://github.com/jeevanparajuli856" target="_blank" rel="noopener noreferrer">
+                  <Github className="mr-2 h-5 w-5" />
+                  Explore More Projects
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                </a>
+              </Button>
             </div>
           </div>
         </section>
@@ -747,7 +831,7 @@ export default function Portfolio() {
         <footer className="py-8 px-4 sm:px-6 lg:px-8 border-t border-border bg-muted/30">
           <div className="max-w-6xl mx-auto text-center">
             <p className="text-muted-foreground cyber-heading">
-              © 2024 Jeevan Parajuli. Securing the digital world, one line of code at a time.
+              © 2025 Jeevan Parajuli. Securing the digital world, one line of code at a time.
             </p>
           </div>
         </footer>
