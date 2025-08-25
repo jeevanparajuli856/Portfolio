@@ -518,6 +518,39 @@ export default function Portfolio() {
                     live: false,
                     image: "/C2Analysis.png",
                   },
+                  {
+                      title: "Lateral Movement Detection System",
+                      description:
+                        "Architecting an enterprise-grade threat detection system from an inductive ML model (IEEE S&P 2024) in collaboration with Dr. Elias Harb(LSU), designed to identify lateral movement",
+                      tech: ["PowerShell", "Python", "SIEM Integration", "REST APIs"],
+                      githubUrl: "",
+                      liveUrl: "",
+                      github: false,
+                      live: false,
+                      image: "/Jbeil.png",
+                    },
+                    {
+                      title: "CVE Trend Analyzer",
+                      description:
+                        "A Python tool that collects and enriches vulnerability data from NVD using pandas, with insights visualized in Power BI to identify trends and high-risk vendors/products.",
+                      tech: ["Python", "Pandas", "Data Analysis", "Power BI", "Vulnerabilty Analysis"],
+                      githubUrl: "https://github.com/jeevanparajuli856/CVE-Trend-Analyzer",
+                      liveUrl: "",
+                      github: true,
+                      live: false,
+                      image: "/CVETrend.png",
+                    },
+                    {
+                      title: "The Path of Function",
+                      description:
+                        "Developed an interactive visual novel game in Ren'Py to teach Python functions — Winner at ULM Tech Expo 2024.",
+                      tech: ["Python", "RenPy"],
+                      githubUrl: "https://github.com/jeevanparajuli856/The-Path-Of-Function",
+                      liveUrl: "https://jeevanparajuli856.itch.io/thepathofthefunction",
+                      github: true,
+                      live: true,
+                      image: "/ThePathProject.png",
+                    },
                 ].map((project, index) => (
                   <Card
                     key={index}
@@ -569,7 +602,7 @@ export default function Portfolio() {
                 ))}
               </div>
 
-              {/* Second row: 2 cards centered */}
+              {/* Second row: 2 cards centered
               <div className="flex justify-center">
                 <div className="grid grid-cols-2 gap-8 max-w-4xl w-full">
                   {[
@@ -645,7 +678,7 @@ export default function Portfolio() {
                     </Card>
                   ))}
                 </div>
-              </div>
+              </div> */}
             </div>
 
             <div className="flex justify-center mt-12">
