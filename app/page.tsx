@@ -499,7 +499,7 @@ export default function Portfolio() {
                   {
                     title: "BlueScope",
                     description:
-                      "Developed a low-overhead, real-time FIM tool for Windows using Python and SHA-256, with Telegram alerts for file changes.",
+                      "A cross-platform Python tool to scan nearby Bluetooth devices (BLE & Classic), log details like address, name, RSSI, and services, and export results to JSON/CSV for analysis.",
                     tech: ["Python", "Blue Low Energy", "Network Security Research"],
                     githubUrl: "https://github.com/jeevanparajuli856/BlueScope",
                     liveUrl: "",
