@@ -5,17 +5,17 @@ It showcases my projects, skills, and experiences, and serves as a central hub t
 
 ---
 
-## ✨ Features
-- ⚡ Built with **Next.js**  
-- 🎨 Styled with **Tailwind CSS** and custom components  
-- 🌗 Dark / Light theme support  
-- 📱 Fully responsive and mobile-friendly  
+## Features
+- Built with **Next.js**  
+- Styled with **Tailwind CSS** and custom components  
+- Dark / Light theme support  
+- Fully responsive and mobile-friendly  
 - ⌨️ Smooth typing and background animations  
-- ⚙️ Modular structure for easy maintenance and scaling  
+- Modular structure for easy maintenance and scaling  
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 ```
 app/                # App router (Next.js 13+)
   ├─ layout.tsx     # Root layout

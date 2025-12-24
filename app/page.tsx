@@ -263,8 +263,7 @@ export default function Portfolio() {
                 <TypingAnimation />
               </div>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8 leading-relaxed text-center">
-                Specialized in Cybersecurity Analysis, Security Engineering, and Secure Software Development with
-                expertise in Web Application Testing and data-driven security solutions to safeguard digital assets.
+                Specialized in Secure Software Development, AI/ML Engineering, and Security Engineering, with expertise in building data-driven applications, intelligent automation, and secure software solutions that enhance performance, scalability, and protection of digital assets.
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -287,15 +286,10 @@ export default function Portfolio() {
             <div className="grid md:grid-cols-2 gap-12 items-start">
               <div className="scroll-reveal delay-100">
                 <p className="text-lg text-muted-foreground mb-6 leading-relaxed text-justify">
-                  I am a dedicated Cybersecurity Analyst and Security Engineer in training with a passion for secure
-                  software development and data-driven security solutions. My background includes threat detection,
-                  vulnerability assessment, incident response, and secure coding practices.
+                  I am a dedicated Software Developer, AI/ML Engineer, and Security Engineer passionate about creating intelligent, secure, and data-driven systems. My expertise spans full-stack development, machine learning, and cybersecurity, enabling me to design scalable applications that merge innovation with resilience across cloud and on-prem environments.
                 </p>
                 <p className="text-lg text-muted-foreground mb-8 leading-relaxed text-justify">
-                  My approach focuses on combining technical skills with analytical thinking to identify security gaps,
-                  implement effective defense measures, and support compliance with industry standards. I value
-                  proactive security, continuous learning, and practical problem-solving as key to staying ahead of
-                  evolving cyber threats and contributing to stronger digital infrastructures.
+                  I focus on integrating AI, automation, and secure software practices to strengthen system reliability and defense against modern threats. With a foundation in Python, TensorFlow, and secure architecture, I aim to build technologies that are not only high-performing but also trustworthy and future-ready.
                 </p>
               </div>
               <Card className="border-border glow-blue shadow-lg hover:shadow-xl transition-all duration-300 scroll-reveal delay-200">
@@ -303,33 +297,30 @@ export default function Portfolio() {
                   <CardTitle className="font-mono text-xl">Core Competencies</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="flex items-center gap-3">
-                    <Shield className="w-5 h-5 text-secondary" />
-                    <span>Cybersecurity & Threat Analysis</span>
-                  </div>
+
                   <div className="flex items-center gap-3">
                     <Code className="w-5 h-5 text-secondary" />
                     <span>Secure Software Development (SDLC)</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Terminal className="w-5 h-5 text-secondary" />
+                    <span>Programming (Python, Java, C++, C#, SQL, PowerShell)</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Cloud className="w-5 h-5 text-secondary" />
+                    <span>Cloud & DevOps: AWS(EC2, S3, Lamda, IAM)</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Cloud className="w-5 h-5 text-secondary" />
+                    <span>Artificial Intelligence & Machine Learning: PyTorch, TensorFlow, Scikit-Learn, Model Training</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <Database className="w-5 h-5 text-secondary" />
                     <span>Data Analysis & Visualization</span>
                   </div>
                   <div className="flex items-center gap-3">
-                    <Cloud className="w-5 h-5 text-secondary" />
-                    <span>Cloud Security (AWS, Azure)</span>
-                  </div>
-                  <div className="flex items-center gap-3">
                     <Search className="w-5 h-5 text-secondary" />
                     <span>SIEM Tools (Splunk, Wazuh, ELK)</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Terminal className="w-5 h-5 text-secondary" />
-                    <span>Programming (Python, Java, C#, SQL, PowerShell)</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Terminal className="w-5 h-5 text-secondary" />
-                    <span>Exploitation Tools (Metasploit, Nmap, BurpSuite and others)</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <Shield className="w-5 h-5 text-secondary" />
@@ -355,7 +346,7 @@ export default function Portfolio() {
               <div className="space-y-12">
                 {[
                   {
-                    date: "Jun 2025 - Present",
+                    date: "Jul 2025 - Present",
                     title: "Project Lead",
                     organization: "University of Louisiana Monroe",
                     experience: [
@@ -373,7 +364,7 @@ export default function Portfolio() {
                     ],
                   },
                   {
-                    date: "Jul 2025 - Present",
+                    date: "Jun 2025 - Present",
                     title: "Vice President",
                     organization: "Google Developer Student Club ULM",
                     experience: [
@@ -427,6 +418,18 @@ export default function Portfolio() {
               <div className="space-y-12">
                 {[
                   {
+                    title: "AWS AI Practitioner",
+                    organization: "AWS",
+                    year: "Dec 2025",
+                    description: "Certification focusing on machine learning fundamentals, model development, and AI-driven problem solving.",
+                  },
+                  {
+                    title: "AWS Cloud Practitioner",
+                    organization: "AWS",
+                    year: "Nov 2025",
+                    description: "Certification focusing on core cloud concepts, services, and security fundamentals.",
+                  },
+                  {
                     title: "CompTIA CySA+",
                     organization: "CompTIA",
                     year: "Jun 2025",
@@ -454,7 +457,7 @@ export default function Portfolio() {
                       <CardHeader>
                         <div className="flex justify-between items-start mb-2">
                           <CardTitle className="font-mono flex items-center gap-2">
-                            {index === 0 ? <GraduationCap className="w-5 h-5" /> : <Award className="w-5 h-5" />}
+                            {index === 4 ? <GraduationCap className="w-5 h-5" /> : <Award className="w-5 h-5" />}
                             {cert.title}
                           </CardTitle>
                           <Badge variant="secondary" className="text-xs">
@@ -486,6 +489,28 @@ export default function Portfolio() {
               <div className="grid md:grid-cols-3 gap-8">
                 {[
                   {
+                    title: "Carbon Horizon",
+                    description:
+                      "Led a team to develop comprehensive, real-time monitoring platform designed to provide complete transparency into Louisiana's carbon capture and storage infrastructure.",
+                    tech: ["React", "Flask", "GitHub Action"],
+                    githubUrl: "https://github.com/Sujal-thapaa/DevDayTEch",
+                    liveUrl: "https://dev-day-t-ech.vercel.app/",
+                    github: true,
+                    live: true,
+                    image: "/CarbonHorizon.png",
+                  },
+                  {
+                    title: "ServiceLoop",
+                    description:
+                      "Develop web application connecting volunteers with nonprofits, events, and community forums. Built with React, Supabase, and Google AI.",
+                    tech: ["React", "PostgreSQL", "Google AI"],
+                    githubUrl: "https://github.com/jeevanparajuli856/ServiceLoop",
+                    liveUrl: "https://service-loop.vercel.app/",
+                    github: true,
+                    live: true,
+                    image: "/ServiceLoop.png",
+                  },
+                  {
                     title: "Integrixa",
                     description:
                       "Developed a low-overhead, real-time FIM tool for Windows using Python and SHA-256, with Telegram alerts for file changes.",
@@ -499,7 +524,7 @@ export default function Portfolio() {
                   {
                     title: "BlueScope",
                     description:
-                      "A cross-platform Python tool to scan nearby Bluetooth devices (BLE & Classic), log details like address, name, RSSI, and services, and export results to JSON/CSV for analysis.",
+                      "Developed a low-overhead, real-time FIM tool for Windows using Python and SHA-256, with Telegram alerts for file changes.",
                     tech: ["Python", "Blue Low Energy", "Network Security Research"],
                     githubUrl: "https://github.com/jeevanparajuli856/BlueScope",
                     liveUrl: "",
