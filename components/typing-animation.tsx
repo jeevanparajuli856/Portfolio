@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 
-const roles = ["Software Engineer", "Ai/ML Engineer","Security Engineer", "Cybersecurity Analyst"]
+const roles = ["Software Engineer", "AI/ML Engineer","Security Engineer", "Cybersecurity Analyst"]
 
 export function TypingAnimation() {
   const [currentRole, setCurrentRole] = useState(0)

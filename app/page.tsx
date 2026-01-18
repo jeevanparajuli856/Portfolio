@@ -355,7 +355,7 @@ export default function Portfolio() {
                     ],
                   },
                   {
-                    date: "Sep 2024 - Present",
+                    date: "May 2024 - July 2025",
                     title: "IT Support Technician",
                     organization: "University of Louisiana Monroe",
                     experience: [
@@ -370,6 +370,15 @@ export default function Portfolio() {
                     experience: [
                       "Driving club growth and member participation by directing bi-weekly 'CodeClash' competition",
                       "Serving as a key liaison between students and professionals to plan a university-wide ULM TechExpo for Fall 2025",
+                    ],
+                  },
+                  {
+                    date: "Feb. 2023 - Aug. 2023",
+                    title: "Security Software Engineer Intern",
+                    organization: "DokoNepal",
+                    experience: [
+                      "Integrated SAST/DAST into CI/CD pipelines, detecting 14+ OWASP Top 10 issues pre-release and improving deployment security by 25%.",
+                      "Conducted automated and manual vulnerability assessments, identifying and remediating 15+ critical flaws and reducing exploitable risk.",
                     ],
                   },
                 ].map((item, index) => (
